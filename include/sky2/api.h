@@ -24,9 +24,24 @@ namespace sky2
 
 namespace sky2::api
 {
-	// The app owns the Device and registers it here before anything touches sky2. hooks::Handler is a
-	// plain C function pointer that cannot carry a Device, so this unit holds it for the entry points.
+	// hooks::Handler is a plain C function pointer that cannot carry a Device, so this unit holds the
+	// one every entry point renders through. setDevice() takes a Device the caller owns, which needs
+	// the private header; a host outside the library scopes one with DeviceHandle instead.
 	void setDevice(Device& device);
+
+	// Creates the device and registers it for the handle's lifetime, so a host gets the same
+	// scope-bound ownership without the Device definition.
+	class DeviceHandle
+	{
+	public:
+		DeviceHandle();
+		~DeviceHandle();
+		DeviceHandle(const DeviceHandle&) = delete;
+		DeviceHandle& operator=(const DeviceHandle&) = delete;
+
+	private:
+		Device* device;
+	};
 
 	// ---- device lifecycle ----------------------------------------------------------------------
 	// Open / close the device (window + GL backend thread). open() returns false when the render

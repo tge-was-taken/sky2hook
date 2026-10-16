@@ -77,6 +77,14 @@ namespace sky2::api
 		}
 	} // namespace
 
+	DeviceHandle::DeviceHandle()
+		: device(new Device)
+	{
+		setDevice(*device);
+	}
+
+	DeviceHandle::~DeviceHandle() { delete device; }
+
 	// ---- device: window/GL lifecycle, camera passes, render state ----
 	bool open() { return device().open(); }
 	void close() { device().close(); }

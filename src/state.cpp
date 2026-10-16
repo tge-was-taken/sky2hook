@@ -9,6 +9,11 @@
 #include <string>
 #include <unordered_map>
 
+namespace sky2::guest
+{
+	uint8_t* g_ram = nullptr; // the host points this at the guest's main RAM via setRam()
+}
+
 namespace sky2
 {
 	namespace

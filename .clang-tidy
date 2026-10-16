@@ -1,0 +1,42 @@
+# Naming rules clang-format cannot enforce. Advisory (not warnings-as-errors): the vendored
+# PCSX2 headers do not follow these, so this is scoped to our own src/ via HeaderFilterRegex.
+Checks: '-*,readability-identifier-naming'
+HeaderFilterRegex: '.*/src/.*'
+WarningsAsErrors: ''
+CheckOptions:
+  # Types are PascalCase (the RwDevice-mirroring ABI names and our own classes/structs).
+  - key: readability-identifier-naming.ClassCase
+    value: CamelCase
+  - key: readability-identifier-naming.StructCase
+    value: CamelCase
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
+  - key: readability-identifier-naming.UnionCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypedefCase
+    value: CamelCase
+  - key: readability-identifier-naming.TypeAliasCase
+    value: CamelCase
+  # Functions, variables, parameters, members are camelCase.
+  - key: readability-identifier-naming.FunctionCase
+    value: camelBack
+  - key: readability-identifier-naming.VariableCase
+    value: camelBack
+  - key: readability-identifier-naming.ParameterCase
+    value: camelBack
+  - key: readability-identifier-naming.MemberCase
+    value: camelBack
+  # Compile-time constants (namespace-scope and static members) are SCREAMING_CASE.
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.ClassConstantCase
+    value: UPPER_CASE
+  # Cross-TU inline globals get a 'g' prefix; file-local statics get an 's' prefix.
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.GlobalVariablePrefix
+    value: g
+  - key: readability-identifier-naming.StaticVariableCase
+    value: camelBack
+  - key: readability-identifier-naming.StaticVariablePrefix
+    value: s
